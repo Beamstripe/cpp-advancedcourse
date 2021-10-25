@@ -1,7 +1,0 @@
-6
-Lihua CS 10000 3.4
-Bob CS 10099 3.9
-Alice Liberal_Arts 19888 3.5
-Police GTA5 42944 2.2
-Lobster Swim 88327 3.6
-Soda Pop 23232 1.1
