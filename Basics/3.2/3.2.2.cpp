@@ -60,6 +60,7 @@ Complex Complex::add(const Complex& c)const{
 	return ans;
 }
 int main(){
+	Complex tmp(12);
 	Complex a(1,2);
 	Complex b(-1,-1);
 	a.multiply(b).output();

@@ -1,3 +1,4 @@
 #include "datatype.h"
-CommodityInfo commodities[MAX_COMMODITY_NUM];
+CommodityInfo *pCommodities;
+int maxCommodityNum=1;
 int commodityNum=0;

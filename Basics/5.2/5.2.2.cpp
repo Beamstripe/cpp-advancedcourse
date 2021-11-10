@@ -106,4 +106,3 @@ Total Perimeter: 26.28*/
 //output
 /*Total Area: 21.14
 Total Perimeter: 32.28*/
-

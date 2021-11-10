@@ -8,7 +8,7 @@ int main(int argc, char *argv[])
     cout<<"欢迎使用购物篮管理系统！\n";
     readData("commmodity.dat");
     while(true){
-        choice=menu();
+        char choice=menu();
         if(choice=='0')
             break;
         switch(choice)  {
