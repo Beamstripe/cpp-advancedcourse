@@ -47,6 +47,10 @@ Point3D::Point3D(const Point& p){
 	Point::setValue(p.getX(),p.getY());
 	z=0;
 }
+Point3D::Point3D(const Point3D& p){
+	Point::setValue(p.getX(),p.getY());
+	z=p.getZ();
+}
 double Point3D::getZ()const {
 	return z;
 }
