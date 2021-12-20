@@ -4,4 +4,5 @@
 extern int maxCommodityNum;
 extern CommodityInfo *pCommodities;
 extern int commodityNum;
+extern char sortType;
 #endif // DATA_H

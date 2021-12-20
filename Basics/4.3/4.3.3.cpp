@@ -27,11 +27,12 @@ class MyString {
 };
 MyString::MyString(MyString&& s){
 	str=new char[1000];
-	strcpy(str,s.str);
+	str=s.str;
+	s.str=nullptr;
 }
 MyString::MyString(const MyString& s){
 	str=new char[1000];
-	str=s.str;
+	strcpy(str,s.str);
 }
 MyString::~MyString(){
 	if(str!=nullptr)
@@ -50,8 +51,7 @@ char& MyString::operator[](int index){
 }
 const char& MyString::operator[](int index)const{
 	if(index<size()){
-		char c=str[index];
-		return c;
+		return str[index];
 	}
 	else{
 		cout<<"terminate called after throwing an instance of 'std::out_of_range'\nwhat():  MyString::_M_range_check: __n (which is "<<index<<") >= this->size() (which is "<<size()<<")"<<endl;
@@ -59,24 +59,30 @@ const char& MyString::operator[](int index)const{
 	}
 }
 MyString& MyString::operator=(const MyString& s){
-	str=s.str;
-	return (*this);
-}
-MyString& MyString::operator=(MyString&& s){
+	if(this==&s)return (*this);
+	delete[] str;
+	str=new char[s.size()];
 	for(int i=0;i<s.size();i++){
 		str[i]=s[i];
 	}
 	return (*this);
 }
+MyString& MyString::operator=(MyString&& s){
+	if(this==&s)return (*this);
+	str=s.str;
+	s.str=nullptr;
+	return (*this);
+}
 MyString MyString::operator+(const MyString& s)const{
 	int len=size();
 	MyString temp;
+//	delete[] temp.str;
 	temp.str=new char[s.size()+len+1];
 	for(int i=0;i<len;i++){
-		temp.str[i]=str[i];
+		temp[i]=str[i];
 	}
 	for(int i=0;i<s.size();i++){
-		temp.str[len+i]=s[i];
+		temp[len+i]=s[i];
 	}
 	temp.str[len+s.size()]='\0';
 	return temp;
@@ -84,6 +90,7 @@ MyString MyString::operator+(const MyString& s)const{
 MyString MyString::operator+(const char* s)const{
 	int len=size();
 	MyString temp;
+//	delete[] temp.str;
 	temp.str=new char[strlen(s)+len+1];
 	for(int i=0;i<len;i++){
 		temp.str[i]=str[i];

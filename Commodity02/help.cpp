@@ -2,6 +2,7 @@
 #include <algorithm>
 #include "header.h"
 void reAllocMemory(CommodityInfo *&pCommodities, int num){
+    ++maxCommodityNum;
     maxCommodityNum*=2;
     CommodityInfo *temp=pCommodities;
     pCommodities=new CommodityInfo[maxCommodityNum];
@@ -63,19 +64,22 @@ void showCommodityInfo(CommodityInfo *pCommodity){
         <<"（价格:"<<pCommodity->price<<"，数量:"
         <<pCommodity->num<<"，折扣:"<<pCommodity->discount<<"）\n";
 }
-void sortCommodity(CommodityInfo *&pCommodities, int num){
+void showCommodityInfo(int position){
+    using std::cout;
+    using std::cin;
+    using std::endl;
+    CommodityInfo* pCommodity=pCommodities+position;
+    cout<<"商品编号(id):"<<pCommodities[position].id<<endl;
+    cout<<"   商品名称:"<<pCommodities[position].name<<endl;
+    cout<<"   商品总价:"<<getCommodityPrice(pCommodity)
+        <<"（价格:"<<pCommodities[position].price<<"，数量:"
+        <<pCommodities[position].num<<"，折扣:"<<pCommodities[position].discount<<"）\n";
+}
+void sortCommodity(CommodityInfo *&pCommodities, int num,char choice){
     using std::cout;
     using std::cin;
     using std::endl;
     using std::sort;
-    cout<<"请输入排序方式："<<endl;
-    cout<<"  1)按商品编号排序："<<endl;
-    cout<<"  2)按商品名称排序："<<endl;
-    cout<<"  3)按商品价格排序："<<endl;
-    cout<<"  4)按商品折扣排序："<<endl;
-    cout<<"  5)按商品总价排序："<<endl;
-    char choice;
-    cin>>choice;
     switch(choice){
     case '1':
         sort(pCommodities,pCommodities+num,cmpById);
@@ -96,19 +100,35 @@ void sortCommodity(CommodityInfo *&pCommodities, int num){
         cout<<"输入的选项非法！"<<endl;
         break;
     }
+
 }
 bool cmpById(CommodityInfo a, CommodityInfo b){
-    return a.id<b.id;
+    if(sortType=='1')
+        return a.id<b.id;
+    else
+        return a.id>b.id;
 }
 bool cmpByName(CommodityInfo a, CommodityInfo b){
-    return a.name<b.name;
+    if(sortType=='1')
+        return a.name<b.name;
+    else
+        return a.name>b.name;
 }
 bool cmpByPrice(CommodityInfo a, CommodityInfo b){
-    return a.price<b.price;
+    if(sortType=='1')
+        return a.price<b.price;
+    else
+        return a.price>b.price;
 }
 bool cmpByDiscount(CommodityInfo a, CommodityInfo b){
-    return a.discount<b.discount;
+    if(sortType=='1')
+        return a.discount<b.discount;
+    else
+        return a.discount>b.discount;
 }
 bool cmpByTotalPrice(CommodityInfo a, CommodityInfo b){
-    return getCommodityPrice(&a)<getCommodityPrice(&b);
+    if(sortType=='1')
+        return getCommodityPrice(&a)<getCommodityPrice(&b);
+    else
+        return getCommodityPrice(&a)>getCommodityPrice(&b);
 }

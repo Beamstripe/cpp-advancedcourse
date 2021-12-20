@@ -7,23 +7,39 @@ char menu(){
     cout<<"  0)退出系统\n";
     cout<<"  1)向购物篮添加商品\n";
     cout<<"  2)从购物篮移除商品\n";
-    cout<<"  3)查看指定商品\n";
-    cout<<"  4)查看所有商品\n";
-    cout<<"  5)结算\n";
+    cout<<"  3)修改指定商品\n";
+    cout<<"  4)查看指定商品\n";
+    cout<<"  5)查看所有商品\n";
+    cout<<"  6)结算\n";
     cout<<"请输入功能选项：\n";
     char choice;
     cin>>choice;
     return choice;
 }
 void viewCommodity(CommodityInfo *pCommodities, int num){
-    using std::cout;
     using std::endl;
-    cout<<"  商品名称\t\t价格\t件数\t折扣\t总价\n";
-    cout<<"  "<<pCommodities->name<<'\t'
-        <<pCommodities->price<<'\t'
-        <<pCommodities->num<<'\t'
-        <<pCommodities->discount<<'\t'
-        <<getCommodityPrice(pCommodities)<<'\t';
+    using std::cout;
+    using std::cin;
+    long id;
+    cout<<" 输入商品的编号(id): ";
+    cin>>id;
+    int position=
+    findCommodityById(pCommodities,num,id);
+    if(position==-1){
+    cout<<"编号为"<<id<<"的商品不存在!\n\n";
+    return;
+    }
+    CommodityInfo* pCommodity=pCommodities+position;
+    showCommodityInfo(pCommodity);
+    cout<<endl;
+//    //
+//    using std::cout;
+//    cout<<"  商品名称\t\t价格\t件数\t折扣\t总价\n";
+//    cout<<"  "<<pCommodities->name<<'\t'
+//        <<pCommodities->price<<'\t'
+//        <<pCommodities->num<<'\t'
+//        <<pCommodities->discount<<'\t'
+//        <<getCommodityPrice(pCommodities)<<'\t'<<endl;
 }
 
 void displayCommodities(CommodityInfo *pCommodities, int num){
@@ -31,6 +47,29 @@ void displayCommodities(CommodityInfo *pCommodities, int num){
     using std::cin;
     using std::endl;
     int i;
+    char op;
+    cout<<"请选择排序方式："<<endl;
+    cout<<"1.按照商品编号排序"<<endl;
+    cout<<"2.按照商品名称排序"<<endl;
+    cout<<"3.按照商品单价排序"<<endl;
+    cout<<"4.按照商品折扣排序"<<endl;
+    cout<<"5.按照商品总价排序"<<endl;
+    while(1){
+        cin>>op;
+        if(op-'0'>5||op-'0'<1){
+            cout<<"排序方式有误，请重新输入"<<endl;
+        }else break;
+    }
+    cout<<"请选择排序方式："<<endl;
+    cout<<"1.升序排列"<<endl;
+    cout<<"2.降序排列"<<endl;
+    while(1){
+        cin>>sortType;
+        if(sortType-'0'>2||sortType-'0'<1){
+            cout<<"排序方式有误，请重新输入"<<endl;
+        }else break;
+    }
+    sortCommodity(pCommodities,num,op);
     cout<<"商品种类："<<num<<endl;
     for(i=0;i<num;i++){
         showCommodityInfo(&pCommodities[i]);
@@ -140,7 +179,7 @@ void writeData(CommodityInfo *&pCommodities,char *filename){
         }
     }
 }
-void modifyCommodity(CommodityInfo *&pCommodities, int num){
+void modifyCommodity(CommodityInfo *&pCommodities, int &num){
     using std::cout;
     using std::cin;
     long id;
@@ -153,6 +192,7 @@ void modifyCommodity(CommodityInfo *&pCommodities, int num){
         cout<<"  商品修改成功！\n";
     }else{
         char option;
+        cout<<"该编号不存在。\n";
         cout<<"需要添加此商品吗？(y/n)";
         cin>>option;
         if(option=='y'){

@@ -93,14 +93,14 @@ Complex& Complex::operator*=(const Complex& f){
 	return *this;
 }
 Complex& Complex::operator++(){
-	setValue(real+1,image+1);
-	cout<<"1"<<endl;//"post" operator
+	setValue(real+1,image);
+//	cout<<"1"<<endl;//"post" operator
 	return *this;
 }
 Complex Complex::operator++(int){
-	Complex ans;
-	ans.setValue(real+1,image+1);
-	cout<<"2"<<endl;//"pred" operator
+	Complex ans(*this);
+	setValue(real+1,image);
+//	cout<<"2"<<endl;//"pred" operator
 	return ans;
 }
 Complex operator-(const Complex& f1,const Complex& f2){

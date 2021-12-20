@@ -18,14 +18,17 @@ int main(int argc, char *argv[])
         case '2':
             removeCommodity(pCommodities,commodityNum);
             break;
-        case '3':
+        case '4':
             viewCommodity(pCommodities,commodityNum);
             break;
-        case '4':
+        case '5':
             displayCommodities(pCommodities,commodityNum);
             break;
-        case '5':
+        case '6':
             checkOut(pCommodities,commodityNum);
+            break;
+        case '3':
+            modifyCommodity(pCommodities,commodityNum);
             break;
         default:
             cout<<"无效输入！请重试！\n";

@@ -5,19 +5,19 @@ const double PI=3.14;
 class Shape {
 	public:
 		//1
-		/*virtual double getArea()const;
-		virtual double getPerimeter()const ;*/
+		virtual double getArea()const;
+		virtual double getPerimeter()const ;
 		//2
-		virtual double getArea()const=0;
-		virtual double getPerimeter()const=0;
+//		virtual double getArea()const=0;
+//		virtual double getPerimeter()const=0;
 };
 //1
-/*double Shape::getArea()const {
+double Shape::getArea()const {
 	return 0;
 }
 double Shape::getPerimeter()const {
 	return 0;
-}*/
+}
 class Circle: public Shape {
 	public:
 		Circle(double r) : radius(r) {}

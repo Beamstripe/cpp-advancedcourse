@@ -1,6 +1,7 @@
 #include <iostream>
 #include <fstream>
 #include "header.h"
+using namespace std;
 char menu(){
     cout<<"  0)退出系统\n";
     cout<<"  1)向购物篮添加商品\n";

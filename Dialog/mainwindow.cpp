@@ -57,7 +57,7 @@ void MainWindow::ellipse(){
 void MainWindow::rectangle(){
 }
 void MainWindow::keyPressEvent(QKeyEvent *event){
-    keyPressedLabel->setFixedSize(200,200);
+    keyPressedLabel->setFixedSize(150,50);
     keyPressedLabel->setText("Pressed: "+event->text());
     keyPressedLabel->setToolTip(event->text());
 

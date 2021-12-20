@@ -40,6 +40,10 @@ void CenterWidget::paintEvent(QPaintEvent *){
         p.drawEllipse(QRect(p1,p2)); break;
     case 2:
         p.drawRect(QRect(p1,p2)); break;
+    default:
+        pen.setColor(Qt::green);
+        p.setPen(pen);
+        update();
     }
     p.drawText(550,200,mouseClickInfo);
     p.drawText(550,300,mousePosInfo);
