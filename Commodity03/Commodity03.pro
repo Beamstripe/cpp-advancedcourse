@@ -11,7 +11,7 @@ QT       -= gui
 TARGET = Commodity03
 CONFIG   += console
 CONFIG   -= app_bundle
-
+CONFIG   += C++11
 TEMPLATE = app
 
 

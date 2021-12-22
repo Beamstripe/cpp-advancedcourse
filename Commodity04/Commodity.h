@@ -1,5 +1,6 @@
 #ifndef COMMODITY_H
 #define COMMODITY_H
+#include <string>
 class Commodity{
 public:
     virtual ~Commodity(){}
@@ -19,10 +20,10 @@ public:
     virtual void output()const;
     static void setNextId(long id){nextId=id;}
     static long getNextId(){return nextId;}
+    double price; //商品价格
 private:
     long id;
     std::string name;
-    double price; //商品数量
     int num; //购买数量
     static long nextId;
     long autoNextId(){return nextId++;}

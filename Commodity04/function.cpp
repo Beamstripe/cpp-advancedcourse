@@ -16,13 +16,38 @@ char menu(){
 void doAddCommodity(CommodityManage& cm){
     string name;
     double price,discount;
-    int num;
+    double tariff;
+    double discountedPrice,newnessRate;
+    int num,type;
+    cout<<"选择商品类型(0-普通商品， 1-海外购商品， 2-折旧商品， 3-促销)";
+    cin>>type;
     fflush(stdin);
-    cout<<"Input name:";
+    cout<<"输入商品名称:";
     getline(cin,name);
-    cout<<"Input price,num,discount:";
-    cin>>price>>num>>discount;
-    cm.addCommodity(Commodity(name,price,num,discount));
+    cout<<"输入价格和商品数量:";
+    cin>>price>>num;
+    if(type==0){
+        cout<<"输入商品折扣:";
+        cin>>discount;
+        cm.addCommodity(new
+                        NormalCommodity(name,price,num,discount));
+    }
+    else if(type==1){
+        cout<<"输入商品折扣和关税:";
+        cin>>discount>>tariff;
+        cm.addCommodity(new
+                        OverseaCommodity(name,price,num,discount,tariff));
+    }else if(type==2){
+        cout<<"输入折扣与折旧程度：";
+        cin>>discount>>newnessRate;
+        cm.addCommodity(new
+                        SecondhandCommodity(name,price,num,discount,newnessRate));
+    }else if(type==3){
+        cout<<"输入商品促销价格：";
+        cin>>discountedPrice;
+        cm.addCommodity(new
+                        SpecialDealCommodity(name,price,num,discountedPrice));
+    }
 }
 void doRemoveCommodity(CommodityManage& cm){
     long id;

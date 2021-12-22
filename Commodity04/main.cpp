@@ -1,34 +1,33 @@
 #include <QCoreApplication>
 #include <iostream>
-#include "commodity.h"
-#include "normalcommodity.h"
-#include "overseacommodity.h"
+#include "header.h"
+
 using namespace std;
-void doAddCommodity(CommodityManage& cm){
-    string name;
-    double price,discount;
-    double tariff;
-    int num,type;
-    cout<<"选择商品类型(0-普通商品， 1-海外购商品)";
-    cin>>type;46
-    fflush(stdin);
-    cout<<"输入商品名称:";
-    getline(cin,name);
-    cout<<"输入价格和商品数量:";
-    cin>>price>>num;
-    if(type==0){
-        cout<<"输入商品折扣:";
-        cin>>discount;
-        cm.addCommodity(new
-                        NormalCommodity(name,price,num,discount));
-    }
-    else if(type==1){
-        cout<<"输入商品折扣和关税:";
-        cin>>discount>>tariff;
-        cm.addCommodity(new
-                        OverseaCommodity(name,price,num,discount,tariff));
-    }
-}
+//void doAddCommodity(CommodityManage& cm){
+//    string name;
+//    double price,discount;
+//    double tariff;
+//    int num,type;
+//    cout<<"选择商品类型(0-普通商品， 1-海外购商品)";
+//    cin>>type;
+//    fflush(stdin);
+//    cout<<"输入商品名称:";
+//    getline(cin,name);
+//    cout<<"输入价格和商品数量:";
+//    cin>>price>>num;
+//    if(type==0){
+//        cout<<"输入商品折扣:";
+//        cin>>discount;
+//        cm.addCommodity(new
+//                        NormalCommodity(name,price,num,discount));
+//    }
+//    else if(type==1){
+//        cout<<"输入商品折扣和关税:";
+//        cin>>discount>>tariff;
+//        cm.addCommodity(new
+//                        OverseaCommodity(name,price,num,discount,tariff));
+//    }
+//}
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);

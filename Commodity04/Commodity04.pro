@@ -11,7 +11,7 @@ QT       -= gui
 TARGET = Commodity04
 CONFIG   += console
 CONFIG   -= app_bundle
-
+CONFIG   += C++11
 TEMPLATE = app
 
 
@@ -20,7 +20,9 @@ SOURCES += main.cpp \
     NormalCommodity.cpp \
     OverseaCommodity.cpp \
     commodityManage.cpp \
-    function.cpp
+    function.cpp \
+    secondhandcommodity.cpp \
+    specialdealcommodity.cpp
 
 HEADERS += \
     Commodity.h \
@@ -28,4 +30,6 @@ HEADERS += \
     OverseaCommodity.h \
     commodityManage.h \
     function.h \
-    header.h
+    header.h \
+    secondhandcommodity.h \
+    specialdealcommodity.h

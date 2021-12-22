@@ -1,10 +1,8 @@
-#include "Commodity.h"
-#include "commodityManage.h"
-#include "NormalCommodity.h"
-#include "OverseaCommodity.h"
+#include "header.h"
 #include <iostream>
 #include <string>
 #include <fstream>
+#include <vector>
 using namespace std;
 CommodityManage::CommodityManage()
     :CommodityManage(100){}
@@ -26,11 +24,6 @@ Commodity* CommodityManage::findCommodityById(int id)const{
             return pCommodities[i];
     return nullptr;
 }
-
-std::vector::iterator CommodityManage::getIterator(Commodity *p)
-{
-
-}
 void CommodityManage::addCommodity(Commodity *p){
     if(size==maxSize){
         reAllocMemory();
@@ -38,7 +31,7 @@ void CommodityManage::addCommodity(Commodity *p){
     }
     Commodity* pCommodity=findCommodityById(p->getId());
     if(pCommodity!=nullptr){
-        cout<<"编号为"<<c.getId()<<"的商品已经存在!累加其数量\n";
+        cout<<"编号为"<<p->getId()<<"的商品已经存在!累加其数量\n";
         pCommodity->setNum(pCommodity->getNum()+p->getNum());
         return;
     }
@@ -82,13 +75,14 @@ void CommodityManage::checkOut()const{
     cout<<"商品种类: "<<size<<endl;
     cout<<" 商品名称\t\t"<<"价格\t"<<"件数\t"<<"折扣\t"<<"总价\n";
     for(int i=0;i<size;++i){
-        double price=(pCommodities+i)->getNetPrice();
-        cout<<" "<<pCommodities[i].getName()<<"\t";
-        cout<<pCommodities[i].getPrice()<<"\t"
-           <<pCommodities[i].getNum()<<"\t"
+        double singlePrice=pCommodities[i]->getPrice();
+        double price=pCommodities[i]->getNetPrice();
+        cout<<" "<<pCommodities[i]->getName()<<"\t";
+        cout<<singlePrice<<"\t"
+           <<pCommodities[i]->getNum()<<"\t"
          <<price<<endl;
         totalPrice+=price;
-        totalNum+=pCommodities[i].getNum();
+        totalNum+=pCommodities[i]->getNum();
     }
     cout<<"购物篮商品总件数: "<<totalNum<<"\n";
     cout<<"购物篮结算总价: "<<totalPrice<<endl;
@@ -122,6 +116,7 @@ void CommodityManage::readData(char *filename){
         Commodity::setNextId(nextId);
         int type;
         double tariff;
+        double discountedPrice,newnessRate;
         in>>fileMax>>fileSize;
         long id;
         string name,buf;
@@ -142,6 +137,14 @@ void CommodityManage::readData(char *filename){
                 in>>discount>>tariff;
                 addCommodity(new
                              OverseaCommodity(id,name,price,num,discount,tariff));
+            }else if(type==2){
+                in>>discount>>newnessRate;
+                addCommodity(new
+                             SecondhandCommodity(id,name,price,num,discount,newnessRate));
+            }else if(type==3){
+                in>>discountedPrice;
+                addCommodity(new
+                             SpecialDealCommodity(id,name,price,num,discountedPrice));
             }
         }
     }

@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "commodity.h"
 using namespace std;
 long Commodity::nextId=100;
@@ -7,7 +8,7 @@ Commodity::Commodity(string n,double p,int nu)
 Commodity::Commodity(long i,std::string n,double p,int nu)
     :id(i),name(n),price(p),num(nu){}
 double Commodity::getNetPrice()const{
-    return price*num;
+    return getPrice()*num;
 }
 void Commodity::output()const{
     cout<<" ÉÌÆ·±àºÅ(id):"<<id<<endl;
