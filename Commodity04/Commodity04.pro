@@ -21,7 +21,8 @@ SOURCES += main.cpp \
     OverseaCommodity.cpp \
     commodityManage.cpp \
     function.cpp \
-    SecondhandCommodity.cpp
+    SecondhandCommodity.cpp \
+    SpecialDealCommodity.cpp
 
 HEADERS += \
     Commodity.h \
@@ -30,4 +31,5 @@ HEADERS += \
     commodityManage.h \
     function.h \
     header.h \
-    SecondhandCommodity.h
+    SecondhandCommodity.h \
+    SpecialDealCommodity.h
