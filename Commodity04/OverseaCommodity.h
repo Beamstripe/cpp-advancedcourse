@@ -18,6 +18,7 @@ public:
     virtual void output()const;
     virtual int getType()const;
     virtual std::string getInfo()const;
+    virtual void modify();
 private:
     double discount;
     double tariff;

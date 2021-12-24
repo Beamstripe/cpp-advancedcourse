@@ -26,3 +26,17 @@ void NormalCommodity::output()const{
        <<getPrice()<<", 数量:"<<getNum()<<", 折扣:"
       <<discount<<" )\n";
 }
+void NormalCommodity::modify(){
+    string newName;
+    int newNum;
+    double newPrice,newDiscount;
+    cout<<"请输入待修改商品的名称：";
+    fflush(stdin);
+    getline(cin,newName);
+    cout<<"请输入待修改商品的价格，数量与折扣：";
+    cin>>newPrice>>newNum>>newDiscount;
+    this->discount=newDiscount;
+    setName(newName);
+    setPrice(newPrice);
+    setNum(newNum);
+}

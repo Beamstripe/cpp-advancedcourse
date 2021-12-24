@@ -26,3 +26,18 @@ void OverseaCommodity::output()const{
        <<getPrice()<<", 数量:"<<getNum()<<", 折扣:"
       <<discount<<", 关税:"<<tariff<<" )\n";
 }
+void OverseaCommodity::modify(){
+    string newName;
+    int newNum;
+    double newPrice,newDiscount,newTariff;
+    cout<<"请输入待修改商品的名称：";
+    fflush(stdin);
+    getline(cin,newName);
+    cout<<"请输入待修改商品的价格，数量，折扣与关税：";
+    cin>>newPrice>>newNum>>newDiscount>>newTariff;
+    setName(newName);
+    setPrice(newPrice);
+    setNum(newNum);
+    this->discount=newDiscount;
+    this->tariff=newTariff;
+}

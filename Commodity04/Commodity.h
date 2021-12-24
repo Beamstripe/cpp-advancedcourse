@@ -20,6 +20,7 @@ public:
     virtual void output()const;
     static void setNextId(long id){nextId=id;}
     static long getNextId(){return nextId;}
+    virtual void modify()=0;
 private:
     long id;
     std::string name;
