@@ -39,16 +39,16 @@ void doAddCommodity(CommodityManage& cm){
     }
 }
 void doRemoveCommodity(CommodityManage& cm){
-    long id;
-    cout<<"Input id:";
-    cin>>id;
-    cm.removeCommodity(id);
+    string name;
+    cout<<"Input name:";
+    cin>>name;
+    cm.removeCommodity(name);
 }
 void doViewCommodity(const CommodityManage& cm){
-    long id;
-    cout<<"Input id:";
-    cin>>id;
-    cm.viewCommodity(id);
+    string name;
+    cout<<"Input name:";
+    cin>>name;
+    cm.viewCommodity(name);
 }
 void doViewAllCommodity(const CommodityManage& cm){
     cm.viewAllCommodities();

@@ -27,10 +27,26 @@ Commodity* CommodityManage::findCommodityById(int id){
         return *it;
     return nullptr;
 }
+const Commodity* CommodityManage::findCommodityByName(string name) const{
+    vector<Commodity*>::const_iterator it=find_if(pCommodities.begin(),
+                                            pCommodities.end(), [=](Commodity* p){return p->getName()==name;});
+    if(it!=pCommodities.end())
+        return *it;
+    return nullptr;
+}
+
+Commodity* CommodityManage::findCommodityByName(string name){
+    vector<Commodity*>::const_iterator it=find_if(pCommodities.begin(),
+                                                  pCommodities.end(), [=](const Commodity* p){return p->getName()==name;});
+    if(it!=pCommodities.end())
+        return *it;
+    return nullptr;
+}
+
 void CommodityManage::addCommodity(Commodity *p){
-    Commodity* pCommodity=findCommodityById(p->getId());
+    Commodity* pCommodity=findCommodityByName(p->getName());
     if(pCommodity!=nullptr){
-        cout<<"编号为"<<p->getId()<<"的商品已经存在!累加其数量\n";
+        cout<<"名称为"<<p->getName()<<"的商品已经存在!累加其数量\n";
         pCommodity->setNum(pCommodity->getNum()+p->getNum());
         return;
     }
@@ -85,19 +101,19 @@ void CommodityManage::sortCommoditiesByType(int type){
     sortType=type;
     sortCommodities();
 }
-void CommodityManage::removeCommodity(int id){
-    Commodity* pCommodity=findCommodityById(id);
+void CommodityManage::removeCommodity(string name){
+    Commodity* pCommodity=findCommodityByName(name);
     if(pCommodity==nullptr){
-        cout<<"编号为"<<id<<"的商品不存在!\n";
+        cout<<"名称为"<<name<<"的商品不存在!\n";
         return;
     }
     delete pCommodity;
     pCommodities.erase(getIterator(pCommodity));
 }
-void CommodityManage::viewCommodity(int id)const{
-    const Commodity* pCommodity=findCommodityById(id);
+void CommodityManage::viewCommodity(string name)const{
+    const Commodity* pCommodity=findCommodityByName(name);
     if(pCommodity==nullptr){
-        cout<<"编号为"<<id<<"的商品不存在!\n";
+        cout<<"名称为"<<name<<"的商品不存在!\n";
         return;
     }
     pCommodity->output();
