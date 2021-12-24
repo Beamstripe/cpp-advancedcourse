@@ -4,6 +4,7 @@
 char menu();
 void doAddCommodity(CommodityManage& cm);
 void doRemoveCommodity(CommodityManage& cm);
+void doModifyCommodity(CommodityManage& cm);
 void doViewCommodity(const CommodityManage& cm);
 void doViewAllCommodity(const CommodityManage& cm);
 void doCheckout(const CommodityManage& cm);

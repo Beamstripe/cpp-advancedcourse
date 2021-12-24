@@ -31,6 +31,9 @@ int main(int argc, char *argv[])
             doViewAllCommodity(cm);
             break;
         case '5':
+            doModifyCommodity(cm);
+            break;
+        case '6':
             doCheckout(cm);
             break;
         default:

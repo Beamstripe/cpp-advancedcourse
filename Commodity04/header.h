@@ -5,4 +5,6 @@
 #include "function.h"
 #include "NormalCommodity.h"
 #include "OverseaCommodity.h"
+#include "SpecialDealCommodity.h"
+#include "SecondhandCommodity.h"
 #endif // HEADER_H

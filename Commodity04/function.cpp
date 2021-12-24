@@ -7,7 +7,8 @@ char menu(){
     cout<<" 2) 从购物篮移除商品\n";
     cout<<" 3) 查看指定商品\n";
     cout<<" 4) 查看所有商品\n";
-    cout<<" 5) 结算\n";
+    cout<<" 5) 修改商品信息\n";
+    cout<<" 6) 结算\n";
     cout<<"请输入功能选项:";
     char choice;
     cin>>choice;
@@ -16,14 +17,14 @@ char menu(){
 void doAddCommodity(CommodityManage& cm){
     string name;
     double price,discount;
-    double tariff;
+    double tariff,newnessRate,promotionPrice;
     int num,type;
-    cout<<"选择商品类型(0-普通商品， 1-海外购商品)";
+    cout<<"选择商品类型(0-普通商品， 1-海外购商品， 2-二手商品， 3-特价商品)";
     cin>>type;
     fflush(stdin);
     cout<<"输入商品名称:";
     getline(cin,name);
-    cout<<"输入价格和商品数量:";
+    cout<<"输入价格（原价）和商品数量:";
     cin>>price>>num;
     if(type==0){
         cout<<"输入商品折扣:";
@@ -36,6 +37,16 @@ void doAddCommodity(CommodityManage& cm){
         cin>>discount>>tariff;
         cm.addCommodity(new
                         OverseaCommodity(name,price,num,discount,tariff));
+    }else if(type==2){
+        cout<<"输入商品折扣和成新度：";
+        cin>>discount>>newnessRate;
+        cm.addCommodity(new
+                        SecondhandCommodity(name,price,num,discount,newnessRate));
+    }else if(type==3){
+        cout<<"输入商品促销价：";
+        cin>>promotionPrice;
+        cm.addCommodity(new
+                        SpecialDealCommodity(name,price,num,promotionPrice));
     }
 }
 
@@ -56,4 +67,10 @@ void doViewAllCommodity(const CommodityManage& cm){
 }
 void doCheckout(const CommodityManage& cm){
     cm.checkOut();
+}
+void doModifyCommodity(CommodityManage &cm){
+    long id;
+    cout<<"Input id:";
+    cin>>id;
+    cm.modifyCommodity(id);
 }

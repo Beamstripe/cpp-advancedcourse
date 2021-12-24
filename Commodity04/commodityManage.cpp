@@ -20,7 +20,7 @@ CommodityManage::~CommodityManage(){
     pCommodities=nullptr;
 }
 
-Commodity* CommodityManage::findCommodityById(int id)const{
+Commodity* CommodityManage::findCommodityById(long id)const{
     for(int i=0;i<size;++i)
         if(pCommodities[i]->getId()==id)
             return pCommodities[i];
@@ -41,14 +41,13 @@ void CommodityManage::addCommodity(Commodity *p){
     pCommodities[size]=p;
     size++;
 }
-void CommodityManage::removeCommodity(int id){
+void CommodityManage::removeCommodity(long id){
     Commodity* pCommodity=findCommodityById(id);
     if(pCommodity==nullptr){
         cout<<"编号为"<<id<<"的商品不存在!\n";
         return;
     }
     delete pCommodity;
-    Commodity *pNext;
     size--;
     Commodity **pos=pCommodities+size;
     while(*pos!=pCommodity){
@@ -59,7 +58,7 @@ void CommodityManage::removeCommodity(int id){
         pos++;
     }
 }
-void CommodityManage::viewCommodity(int id)const{
+void CommodityManage::viewCommodity(long id)const{
     Commodity* pCommodity=findCommodityById(id);
     if(pCommodity==nullptr){
         cout<<"编号为"<<id<<"的商品不存在!\n";
@@ -140,5 +139,13 @@ void CommodityManage::readData(char *filename){
                              OverseaCommodity(id,name,price,num,discount,tariff));
             }
         }
+    }
+}
+void CommodityManage::modifyCommodity(long id){
+    Commodity* pCommodity=findCommodityById(id);
+    if(pCommodity!=nullptr){
+        pCommodity->modify();
+    }else{
+        cout<<"该商品不存在！";
     }
 }
