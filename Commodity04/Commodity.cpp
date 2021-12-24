@@ -1,4 +1,5 @@
 #include <iostream>
+#include <sstream>
 #include "commodity.h"
 using namespace std;
 long Commodity::nextId=100;

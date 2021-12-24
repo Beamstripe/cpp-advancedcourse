@@ -1,5 +1,6 @@
 #ifndef COMMODITY_H
 #define COMMODITY_H
+#include <string>
 class Commodity{
 public:
     virtual ~Commodity(){}

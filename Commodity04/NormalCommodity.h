@@ -14,7 +14,7 @@ public:
     virtual double getNetPrice()const;
     virtual void output()const;
     virtual int getType()const;
-    virtual str::string getInfo()const;
+    virtual std::string getInfo()const;
 private:
     double discount;
 };

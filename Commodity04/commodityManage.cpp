@@ -27,10 +27,6 @@ Commodity* CommodityManage::findCommodityById(int id)const{
     return nullptr;
 }
 
-std::vector::iterator CommodityManage::getIterator(Commodity *p)
-{
-
-}
 void CommodityManage::addCommodity(Commodity *p){
     if(size==maxSize){
         reAllocMemory();
@@ -38,7 +34,7 @@ void CommodityManage::addCommodity(Commodity *p){
     }
     Commodity* pCommodity=findCommodityById(p->getId());
     if(pCommodity!=nullptr){
-        cout<<"编号为"<<c.getId()<<"的商品已经存在!累加其数量\n";
+        cout<<"编号为"<<p->getId()<<"的商品已经存在!累加其数量\n";
         pCommodity->setNum(pCommodity->getNum()+p->getNum());
         return;
     }
@@ -82,13 +78,13 @@ void CommodityManage::checkOut()const{
     cout<<"商品种类: "<<size<<endl;
     cout<<" 商品名称\t\t"<<"价格\t"<<"件数\t"<<"折扣\t"<<"总价\n";
     for(int i=0;i<size;++i){
-        double price=(pCommodities+i)->getNetPrice();
-        cout<<" "<<pCommodities[i].getName()<<"\t";
-        cout<<pCommodities[i].getPrice()<<"\t"
-           <<pCommodities[i].getNum()<<"\t"
+        double price=pCommodities[i]->getNetPrice();
+        cout<<" "<<pCommodities[i]->getName()<<"\t";
+        cout<<pCommodities[i]->getPrice()<<"\t"
+           <<pCommodities[i]->getNum()<<"\t"
          <<price<<endl;
         totalPrice+=price;
-        totalNum+=pCommodities[i].getNum();
+        totalNum+=pCommodities[i]->getNum();
     }
     cout<<"购物篮商品总件数: "<<totalNum<<"\n";
     cout<<"购物篮结算总价: "<<totalPrice<<endl;
