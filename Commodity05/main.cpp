@@ -1,41 +1,18 @@
 #include <QCoreApplication>
 #include <iostream>
 #include "commodity.h"
+#include "function.h"
 #include "normalcommodity.h"
 #include "overseacommodity.h"
+#include "commodityManage.h"
 using namespace std;
-void doAddCommodity(CommodityManage& cm){
-    string name;
-    double price,discount;
-    double tariff;
-    int num,type;
-    cout<<"选择商品类型(0-普通商品， 1-海外购商品)";
-    cin>>type;46
-    fflush(stdin);
-    cout<<"输入商品名称:";
-    getline(cin,name);
-    cout<<"输入价格和商品数量:";
-    cin>>price>>num;
-    if(type==0){
-        cout<<"输入商品折扣:";
-        cin>>discount;
-        cm.addCommodity(new
-                        NormalCommodity(name,price,num,discount));
-    }
-    else if(type==1){
-        cout<<"输入商品折扣和关税:";
-        cin>>discount>>tariff;
-        cm.addCommodity(new
-                        OverseaCommodity(name,price,num,discount,tariff));
-    }
-}
 int main(int argc, char *argv[])
 {
     QCoreApplication a(argc, argv);
     cout<<"欢迎使用购物篮管理系统!\n";
     char choice;
     CommodityManage cm;
-    cm.readData("d:\\commodity04.data");
+    cm.readData("d:\\commodity05.data");
     while(true){
         choice=menu();
         if(choice=='0')
@@ -62,6 +39,6 @@ int main(int argc, char *argv[])
         }
     }
     cout<<"再见!\n";
-    cm.saveData("d:\\commodity04.data");
+    cm.saveData("d:\\commodity05.data");
     return a.exec();
 }
