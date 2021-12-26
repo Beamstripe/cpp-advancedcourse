@@ -7,19 +7,21 @@ class Seat
 {
 public:
     //constructor
-    Seat();
+    Seat()=delete;
+    Seat(int cn,string pos,string c,bool b):carriageNum(cn),position(pos),category(c),ifNoSeat(b){}
     //setter
-    void setGrade(string grade){this->grade=grade;}
+//    void setGrade(string grade){this->grade=grade;}
     void setCarriageNum(int carriageNum){this->carriageNum=carriageNum;}
     void setPosition(string position){this->position=position;}
     void setCategory(string category){this->category=category;}
     //getter
-    string getGrade(){return grade;}
+//    string getGrade(){return grade;}
     int getCarriageNum(){return carriageNum;}
     string getPosition(){return position;}
     string getCategory(){return category;}
+    void output()const;
 private:
-    string grade;
+    bool ifNoSeat;
     int carriageNum;
     string position;
     string category;

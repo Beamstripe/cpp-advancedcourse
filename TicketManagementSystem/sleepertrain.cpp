@@ -3,3 +3,6 @@
 SleeperTrain::SleeperTrain()
 {
 }
+SleeperTrain::output(){
+    return;
+}

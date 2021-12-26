@@ -25,6 +25,7 @@ public:
     //virtual
     virtual double getPrice()const=0;
     virtual string getTrainType()const=0;
+    virtual void output()const=0;
     //others
     time_t getArrivalTime();
 private:

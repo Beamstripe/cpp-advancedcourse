@@ -14,9 +14,8 @@ public:
     bool getIfSmartCarriage(){return ifSmartCarriage;}
     bool getIfSilentCarriage(){return ifSilientCarriage;}
     //virtual
-    virtual getPrice()const;
-    virtual getTrainType()const;
 private:
+//    virtual void getPrice()const;
     bool ifSmartCarriage;
     bool ifSilientCarriage;
 };
