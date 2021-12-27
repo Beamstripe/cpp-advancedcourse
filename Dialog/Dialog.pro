@@ -10,15 +10,13 @@ greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = Dialog
 TEMPLATE = app
-
+CONFIG   += C++11
 
 SOURCES += main.cpp\
         mainwindow.cpp \
-    dialog.cpp \
     centerwidget.cpp
 
 HEADERS  += mainwindow.h \
-    dialog.h \
     centerwidget.h
 
 FORMS    += mainwindow.ui
