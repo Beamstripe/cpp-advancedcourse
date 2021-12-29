@@ -33,3 +33,14 @@ void rightwidget::updateBalls() //封装的控制小球移动的接口
 void rightwidget::addBall(const Ball &b){
     balls.append(b);
 }
+void rightwidget::mousePressEvent(QMouseEvent *e){
+    double posx=e->x(),posy=e->y();
+    setPre(posx,posy);
+}
+void rightwidget::mouseReleaseEvent(QMouseEvent *e){
+    double x=e->x(),y=e->y();
+    double speed=0.5*sqrt((prex-x)*(prex-x)+(prey-y)*(prey-y));
+    double sgn=prex>x?1:-1;
+    double theta=sgn*(acos(-1)-atan((prey-y)/(prex-x)))*180/acos(-1);
+    addBall(Ball(x,y,10,speed,theta,Qt::red));
+}

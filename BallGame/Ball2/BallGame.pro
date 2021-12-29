@@ -1,16 +1,17 @@
 #-------------------------------------------------
 #
-# Project created by QtCreator 2021-11-24T08:53:40
+# Project created by QtCreator 2021-12-28T19:39:11
 #
 #-------------------------------------------------
 
 QT       += core gui
 
+
 greaterThan(QT_MAJOR_VERSION, 4): QT += widgets
 
 TARGET = BallGame
 TEMPLATE = app
-CONFIG  +=C++11
+
 
 SOURCES += main.cpp\
         mainwindow.cpp \
@@ -18,6 +19,8 @@ SOURCES += main.cpp\
     rightwidget.cpp \
     ball.cpp \
     paintlabel.cpp
+
+CONFIG += C++11
 
 HEADERS  += mainwindow.h \
     leftwidget.h \

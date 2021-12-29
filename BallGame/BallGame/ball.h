@@ -15,6 +15,10 @@ public:
     void draw(QPainter *p); //绘制小球
     void move(); //在指定的方向上移动 1 步
     void checkCollision(Ball &b);
+    double setSpeed(double sp){
+        speed=sp;
+    }
+
 private:
     double x,y; //小球的中心为位置
     double radius; //小球半径

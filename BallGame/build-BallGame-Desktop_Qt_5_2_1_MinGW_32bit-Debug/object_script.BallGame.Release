@@ -1,0 +1,12 @@
+INPUT(
+./release\main.o
+./release\mainwindow.o
+./release\leftwidget.o
+./release\rightwidget.o
+./release\ball.o
+./release\paintlabel.o
+./release\moc_mainwindow.o
+./release\moc_leftwidget.o
+./release\moc_rightwidget.o
+./release\moc_paintlabel.o
+);

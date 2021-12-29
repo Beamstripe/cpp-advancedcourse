@@ -151,6 +151,7 @@ Makefile: ../BallGame/BallGame.pro E:/QT/QT5.2.1/5.2.1/mingw48_32/mkspecs/win32-
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/mkspecs/features/resolve_config.prf \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/mkspecs/features/exclusive_builds_post.prf \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/mkspecs/features/default_post.prf \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/mkspecs/features/c++11.prf \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/mkspecs/features/qml_debug.prf \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/mkspecs/features/declarative_debug.prf \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/mkspecs/features/win32/rtti.prf \
@@ -262,6 +263,7 @@ E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\win32\default_pre.prf:
 E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\resolve_config.prf:
 E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\exclusive_builds_post.prf:
 E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\default_post.prf:
+E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\c++11.prf:
 E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\qml_debug.prf:
 E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\declarative_debug.prf:
 E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\win32\rtti.prf:

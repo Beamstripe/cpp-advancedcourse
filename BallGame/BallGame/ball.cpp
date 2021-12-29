@@ -24,6 +24,8 @@ void Ball::move(){
     dy=speed*std::cos(angle*PI/180);
     x+=dx;
     y+=dy;
+    setSpeed(speed*0.99);
+    if(speed<0.1)setSpeed(0);
     checkBoundary();
 }
 void Ball::checkBoundary(){
@@ -48,13 +50,28 @@ void Ball::checkCollision(Ball &b){
     double dx,dy;
     dx=x-b.x;
     dy=y-b.y;
+    double midx=(x+b.x)/2,midy=(y+b.y)/2;
     double dis=std::sqrt(dx*dx+dy*dy);
+    double difx=(std::cos(radius+b.radius)-dx)/2;
+    double dify=(std::sin(radius+b.radius)-dy)/2;
+//    if(x<b.x){
+//        x+=difx;
+//        b.x-=difx;
+//        y+=dify;
+//        b.y-=dify;
+//    }else{
+//        x-=difx;
+//        b.x+=difx;
+//        y-=dify;
+//        b.y+=dify;
+//    }
     if(dis<=radius+b.radius){ //碰撞后只是交换速度和角度
         double temp;
         temp=speed;
-        speed=b.speed;
-        b.speed=temp;
+        speed=0.95*b.speed;
+        b.speed=0.95*temp;
         temp=angle;
+        if(fabs(angle-b.angle)<=5)
         angle=b.angle;
         b.angle=temp;
     }

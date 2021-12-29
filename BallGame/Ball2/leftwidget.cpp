@@ -1,37 +1,37 @@
-#include "leftwidget.h"
-#include <QGridLayout>
-#include <QPalette>
-#include <QEvent>
-#include <QPainter>
-#include <QString>
+ï»¿#include "leftwidget.h"
+#include<QGridLayout>
+#include<QPalette>
+#include<QEvent>
+#include<QString>
 #include "mainwindow.h"
-#include <QTextCodec>
-#define tr QString::fromLocal8Bit
-leftwidget::leftwidget(QWidget *parent) :
+#include "paintlabel.h"
+LeftWidget::LeftWidget(QWidget *parent) :
     QWidget(parent)
 {
     pmain=(MainWindow *)parent;
     xLabel=new QLabel(this);
-    xLabel->setText(tr("x ×ø±ê:"));
+    xLabel->setText(tr("xåæ ‡:"));
     yLabel=new QLabel(this);
-    yLabel->setText(tr("y ×ø±ê:"));
+    yLabel->setText(tr("yåæ ‡:"));
     radiusLabel=new QLabel(this);
-    radiusLabel->setText(tr("°ë¾¶:"));
+    radiusLabel->setText(tr("åŠå¾„:"));
     speedLabel=new QLabel(this);
-    speedLabel->setText(tr("ËÙ¶È:"));
+    speedLabel->setText(tr("é€Ÿåº¦:"));
     angleLabel=new QLabel(this);
-    angleLabel->setText(tr("½Ç¶È:"));
+    angleLabel->setText(tr("è§’åº¦:"));
     colorLabel=new QLabel(this);
-    colorLabel->setText(tr("ÑÕÉ«:"));
+    colorLabel->setText(tr("é¢œè‰²:"));
     xEdit=new QLineEdit("100",this);
     yEdit=new QLineEdit("50",this);
     radiusEdit=new QLineEdit("10",this);
     speedEdit=new QLineEdit("5",this);
+
     colorPreview=new PaintLabel(this);
-    colorPreview->setText(tr(" ")); //³õÊ¼×Ö·û´®È·¶¨¿Ø¼ş´óĞ¡
+    colorPreview->setText(tr("      "));
+
     angleEdit=new QLineEdit("40",this);
-    addButton=new QPushButton(tr("Ìí¼Ó"),this);
-    stopButton=new QPushButton(tr("ÔİÍ£"),this);
+    addButton=new QPushButton(tr("æ·»åŠ "),this);
+    stopButton=new QPushButton(tr("æš‚åœ"),this);
     QGridLayout *mainLayout=new QGridLayout(this);
     mainLayout->addWidget(xLabel,0,0);
     mainLayout->addWidget(xEdit,0,1);
@@ -50,11 +50,13 @@ leftwidget::leftwidget(QWidget *parent) :
     setLayout(mainLayout);
     connect(addButton,SIGNAL(clicked()),this,SLOT(addBall()));
     connect(stopButton,SIGNAL(clicked()),this,SLOT(stopBall()));
+
 }
-void leftwidget::addBall(){
-    rightwidget *right=pmain->getRightWidget();
-    //pmain Ê±Ö¸ÏòÖ÷´°¿ÚµÄÖ¸Õë£¬Í¨¹ıÆä½Ó¿Ú getRightWidget »ñµÃ
-    //ÓÒ²à´°¿ÚÖ¸Õë£¬ÔÙµ÷ÓÃ right µÄ addBall ½Ó¿ÚÌí¼ÓĞ¡Çò
+
+void LeftWidget::addBall()
+{
+    RightWidget* right=pmain->getRightWidget();
+    //pmainæ—¶æŒ‡å‘ä¸»çª—å£çš„æŒ‡é’ˆï¼Œé€šè¿‡å…¶æ¥å£getRightWidgetè·å¾—
     double x,y;
     double radius,angle,speed;
     QColor fillColor;
@@ -67,13 +69,16 @@ void leftwidget::addBall(){
     fillColor=colorPreview->getFillColor();
     right->addBall(Ball(x,y,radius,speed,angle,fillColor));
 }
-void leftwidget::stopBall(){
-    if(stopButton->text()==tr("ÔİÍ£")){
+void LeftWidget::stopBall()
+{
+    if (stopButton->text()==tr("æš‚åœ"))
+    {
         pmain->StopTimer();
-        stopButton->setText(tr("¿ªÊ¼"));
+        stopButton->setText(tr("å¼€å§‹"));
     }
-    else{
+    else
+    {
         pmain->resumeTimer();
-        stopButton->setText(tr("ÔİÍ£"));
+        stopButton->setText(tr("æš‚åœ"));
     }
 }

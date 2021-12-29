@@ -13,7 +13,7 @@ CC            = gcc
 CXX           = g++
 DEFINES       = -DUNICODE -DQT_QML_DEBUG -DQT_DECLARATIVE_DEBUG -DQT_WIDGETS_LIB -DQT_GUI_LIB -DQT_CORE_LIB -DQT_NEEDS_QMAIN
 CFLAGS        = -pipe -fno-keep-inline-dllexport -g -Wall -Wextra $(DEFINES)
-CXXFLAGS      = -pipe -fno-keep-inline-dllexport -g -frtti -Wall -Wextra -fexceptions -mthreads $(DEFINES)
+CXXFLAGS      = -pipe -fno-keep-inline-dllexport -g -std=c++0x -frtti -Wall -Wextra -fexceptions -mthreads $(DEFINES)
 INCPATH       = -I..\BallGame -I"E:\QT\QT5.2.1\5.2.1\mingw48_32\include" -I"E:\QT\QT5.2.1\5.2.1\mingw48_32\include\QtWidgets" -I"E:\QT\QT5.2.1\5.2.1\mingw48_32\include\QtGui" -I"E:\QT\QT5.2.1\5.2.1\mingw48_32\include\QtCore" -I"debug" -I"." -I"E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\win32-g++"
 LINKER      =        g++
 LFLAGS        =        -Wl,-subsystem,windows -mthreads
@@ -47,17 +47,21 @@ SOURCES       = ..\BallGame\main.cpp \
 		..\BallGame\mainwindow.cpp \
 		..\BallGame\leftwidget.cpp \
 		..\BallGame\rightwidget.cpp \
-		..\BallGame\ball.cpp debug\moc_mainwindow.cpp \
+		..\BallGame\ball.cpp \
+		..\BallGame\paintlabel.cpp debug\moc_mainwindow.cpp \
 		debug\moc_leftwidget.cpp \
-		debug\moc_rightwidget.cpp
+		debug\moc_rightwidget.cpp \
+		debug\moc_paintlabel.cpp
 OBJECTS       = debug/main.o \
 		debug/mainwindow.o \
 		debug/leftwidget.o \
 		debug/rightwidget.o \
 		debug/ball.o \
+		debug/paintlabel.o \
 		debug/moc_mainwindow.o \
 		debug/moc_leftwidget.o \
-		debug/moc_rightwidget.o
+		debug/moc_rightwidget.o \
+		debug/moc_paintlabel.o
 
 DIST          = 
 QMAKE_TARGET  = BallGame
@@ -87,7 +91,7 @@ first: all
 all: Makefile.Debug  $(DESTDIR_TARGET)
 
 $(DESTDIR_TARGET):  $(OBJECTS) 
-	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) $(OBJECTS)  $(LIBS)
+	$(LINKER) $(LFLAGS) -o $(DESTDIR_TARGET) object_script.BallGame.Debug  $(LIBS)
 
 qmake: FORCE
 	@$(QMAKE) -spec win32-g++ CONFIG+=debug CONFIG+=declarative_debug CONFIG+=qml_debug -o Makefile.Debug ..\BallGame\BallGame.pro
@@ -95,10 +99,10 @@ qmake: FORCE
 qmake_all: FORCE
 
 dist:
-	$(ZIP) BallGame.zip $(SOURCES) $(DIST) ..\BallGame\BallGame.pro E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\spec_pre.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\qdevice.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\device_config.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\common\shell-win32.conf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\qconfig.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axbase.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axbase_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axcontainer.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axcontainer_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axserver.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axserver_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bluetooth.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bluetooth_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bootstrap_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_clucene_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_concurrent.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_concurrent_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_core.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_core_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_declarative.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_declarative_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designer.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designer_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designercomponents_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_gui.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_gui_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_help.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_help_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimedia.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimedia_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimediawidgets.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_network.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_network_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_nfc.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_nfc_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_opengl.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_opengl_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_openglextensions.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_openglextensions_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_platformsupport_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_positioning.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_positioning_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_printsupport.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_printsupport_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qml.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qml_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmldevtools_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmltest.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmltest_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quick.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quick_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quickparticles_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_script.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_script_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_scripttools.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_scripttools_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sensors.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sensors_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_serialport.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_serialport_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sql.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sql_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_svg.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_svg_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_testlib.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_testlib_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_uitools.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_uitools_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkit.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkit_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkitwidgets.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkitwidgets_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_widgets.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_widgets_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_winextras.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_winextras_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xml.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xml_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xmlpatterns.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\qt_functions.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\qt_config.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\win32-g++\qmake.conf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\spec_post.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\exclusive_builds.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\default_pre.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\win32\default_pre.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\resolve_config.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\exclusive_builds_post.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\default_post.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\build_pass.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\qml_debug.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\declarative_debug.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\win32\rtti.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\warn_on.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\qt.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\resources.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\moc.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\win32\opengl.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\uic.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\win32\windows.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\testcase_targets.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\exceptions.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\yacc.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\lex.prf ..\BallGame\BallGame.pro E:/QT/QT5.2.1/5.2.1/mingw48_32/lib/Qt5Widgetsd.prl E:/QT/QT5.2.1/5.2.1/mingw48_32/lib/Qt5Guid.prl E:/QT/QT5.2.1/5.2.1/mingw48_32/lib/Qt5Cored.prl  RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
+	$(ZIP) BallGame.zip $(SOURCES) $(DIST) ..\BallGame\BallGame.pro E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\spec_pre.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\qdevice.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\device_config.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\common\shell-win32.conf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\qconfig.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axbase.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axbase_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axcontainer.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axcontainer_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axserver.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_axserver_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bluetooth.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bluetooth_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_bootstrap_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_clucene_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_concurrent.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_concurrent_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_core.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_core_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_declarative.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_declarative_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designer.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designer_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_designercomponents_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_gui.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_gui_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_help.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_help_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimedia.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimedia_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimediawidgets.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_multimediawidgets_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_network.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_network_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_nfc.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_nfc_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_opengl.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_opengl_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_openglextensions.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_openglextensions_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_platformsupport_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_positioning.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_positioning_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_printsupport.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_printsupport_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qml.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qml_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmldevtools_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmltest.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qmltest_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_qtmultimediaquicktools_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quick.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quick_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_quickparticles_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_script.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_script_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_scripttools.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_scripttools_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sensors.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sensors_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_serialport.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_serialport_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sql.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_sql_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_svg.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_svg_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_testlib.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_testlib_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_uitools.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_uitools_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkit.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkit_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkitwidgets.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_webkitwidgets_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_widgets.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_widgets_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_winextras.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_winextras_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xml.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xml_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xmlpatterns.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\modules\qt_lib_xmlpatterns_private.pri E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\qt_functions.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\qt_config.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\win32-g++\qmake.conf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\spec_post.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\exclusive_builds.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\default_pre.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\win32\default_pre.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\resolve_config.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\exclusive_builds_post.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\default_post.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\build_pass.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\c++11.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\qml_debug.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\declarative_debug.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\win32\rtti.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\warn_on.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\qt.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\resources.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\moc.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\win32\opengl.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\uic.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\win32\windows.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\testcase_targets.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\exceptions.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\yacc.prf E:\QT\QT5.2.1\5.2.1\mingw48_32\mkspecs\features\lex.prf ..\BallGame\BallGame.pro E:/QT/QT5.2.1/5.2.1/mingw48_32/lib/Qt5Widgetsd.prl E:/QT/QT5.2.1/5.2.1/mingw48_32/lib/Qt5Guid.prl E:/QT/QT5.2.1/5.2.1/mingw48_32/lib/Qt5Cored.prl  RESOURCES HEADERS SOURCES OBJECTIVE_SOURCES FORMS YACCSOURCES YACCSOURCES LEXSOURCES 
 
 clean: compiler_clean 
-	-$(DEL_FILE) debug\main.o debug\mainwindow.o debug\leftwidget.o debug\rightwidget.o debug\ball.o debug\moc_mainwindow.o debug\moc_leftwidget.o debug\moc_rightwidget.o
+	-$(DEL_FILE) debug\main.o debug\mainwindow.o debug\leftwidget.o debug\rightwidget.o debug\ball.o debug\paintlabel.o debug\moc_mainwindow.o debug\moc_leftwidget.o debug\moc_rightwidget.o debug\moc_paintlabel.o
 
 distclean: clean
 	-$(DEL_FILE) $(DESTDIR_TARGET)
@@ -112,9 +116,9 @@ check: first
 
 compiler_rcc_make_all:
 compiler_rcc_clean:
-compiler_moc_header_make_all: debug/moc_mainwindow.cpp debug/moc_leftwidget.cpp debug/moc_rightwidget.cpp
+compiler_moc_header_make_all: debug/moc_mainwindow.cpp debug/moc_leftwidget.cpp debug/moc_rightwidget.cpp debug/moc_paintlabel.cpp
 compiler_moc_header_clean:
-	-$(DEL_FILE) debug\moc_mainwindow.cpp debug\moc_leftwidget.cpp debug\moc_rightwidget.cpp
+	-$(DEL_FILE) debug\moc_mainwindow.cpp debug\moc_leftwidget.cpp debug\moc_rightwidget.cpp debug\moc_paintlabel.cpp
 debug/moc_mainwindow.cpp: E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QMainWindow \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qmainwindow.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qwidget.h \
@@ -231,14 +235,25 @@ debug/moc_mainwindow.cpp: E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QMain
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qframe.h \
 		../BallGame/leftwidget.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QWidget \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLabel \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLineEdit \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlineedit.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextcursor.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextformat.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpen.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QPushButton \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qpushbutton.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qabstractbutton.h \
+		../BallGame/paintlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QColor \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
 		../BallGame/rightwidget.h \
 		../BallGame/ball.h \
-		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QColor \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QRect \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QPainter \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpainter.h \
-		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
-		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpen.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QList \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QTimer \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qtimer.h \
@@ -354,6 +369,22 @@ debug/moc_leftwidget.cpp: E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QWidg
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qfiledevice.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qvector2d.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtouchdevice.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLabel \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qframe.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLineEdit \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlineedit.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextcursor.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextformat.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpen.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QPushButton \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qpushbutton.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qabstractbutton.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qicon.h \
+		../BallGame/paintlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QColor \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
 		../BallGame/leftwidget.h
 	E:\QT\QT5.2.1\5.2.1\mingw48_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 $(INCPATH) ..\BallGame\leftwidget.h -o debug\moc_leftwidget.cpp
 
@@ -475,6 +506,121 @@ debug/moc_rightwidget.cpp: E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QWid
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QList \
 		../BallGame/rightwidget.h
 	E:\QT\QT5.2.1\5.2.1\mingw48_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 $(INCPATH) ..\BallGame\rightwidget.h -o debug\moc_rightwidget.cpp
+
+debug/moc_paintlabel.cpp: E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLabel \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qframe.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qwidget.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qwindowdefs.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qglobal.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qconfig.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qfeatures.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qsystemdetection.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qprocessordetection.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qcompilerdetection.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qglobalstatic.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qbasicatomic.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_bootstrap.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qgenericatomic.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_msvc.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_integrity.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qoldbasicatomic.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_vxworks.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_power.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_alpha.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_armv7.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_armv6.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_armv5.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_bfin.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_ia64.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_mips.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_s390.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_sh4a.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_sparc.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_x86.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_cxx11.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_gcc.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_unix.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qmutex.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qlogging.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qflags.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qtypeinfo.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qtypetraits.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qsysinfo.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qobjectdefs.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qnamespace.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qobjectdefs_impl.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qwindowdefs_win.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qobject.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qstring.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qchar.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qbytearray.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qrefcount.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qarraydata.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qstringbuilder.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qlist.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qalgorithms.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qiterator.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qcoreevent.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qscopedpointer.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qmetatype.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qvarlengtharray.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qcontainerfwd.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qisenum.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qobject_impl.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qmargins.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qrect.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qsize.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qpoint.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpaintdevice.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpalette.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qcolor.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qrgb.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qstringlist.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qdatastream.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qiodevice.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qpair.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qregexp.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qstringmatcher.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qbrush.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qvector.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qmatrix.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpolygon.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qregion.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qline.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtransform.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpainterpath.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qimage.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpixmap.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qsharedpointer.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qshareddata.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qsharedpointer_impl.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qhash.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qfont.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qfontmetrics.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qfontinfo.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qsizepolicy.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qcursor.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qkeysequence.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qevent.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qvariant.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qmap.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qdebug.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qtextstream.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qlocale.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qset.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qcontiguouscache.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qurl.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qurlquery.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qfile.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qfiledevice.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qvector2d.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtouchdevice.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QColor \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
+		../BallGame/paintlabel.h
+	E:\QT\QT5.2.1\5.2.1\mingw48_32\bin\moc.exe $(DEFINES) -D__GNUC__ -DWIN32 $(INCPATH) ..\BallGame\paintlabel.h -o debug\moc_paintlabel.cpp
 
 compiler_moc_source_make_all:
 compiler_moc_source_clean:
@@ -609,14 +755,25 @@ debug/main.o: ../BallGame/main.cpp ../BallGame/mainwindow.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qframe.h \
 		../BallGame/leftwidget.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QWidget \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLabel \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLineEdit \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlineedit.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextcursor.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextformat.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpen.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QPushButton \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qpushbutton.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qabstractbutton.h \
+		../BallGame/paintlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QColor \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
 		../BallGame/rightwidget.h \
 		../BallGame/ball.h \
-		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QColor \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QRect \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QPainter \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpainter.h \
-		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
-		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpen.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QList \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QTimer \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qtimer.h \
@@ -747,14 +904,25 @@ debug/mainwindow.o: ../BallGame/mainwindow.cpp ../BallGame/mainwindow.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qframe.h \
 		../BallGame/leftwidget.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QWidget \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLabel \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLineEdit \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlineedit.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextcursor.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextformat.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpen.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QPushButton \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qpushbutton.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qabstractbutton.h \
+		../BallGame/paintlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QColor \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
 		../BallGame/rightwidget.h \
 		../BallGame/ball.h \
-		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QColor \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QRect \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QPainter \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpainter.h \
-		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
-		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpen.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QList \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QTimer \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qtimer.h \
@@ -869,7 +1037,46 @@ debug/leftwidget.o: ../BallGame/leftwidget.cpp ../BallGame/leftwidget.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qfile.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qfiledevice.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qvector2d.h \
-		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtouchdevice.h
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtouchdevice.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLabel \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qframe.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLineEdit \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlineedit.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextcursor.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextformat.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpen.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QPushButton \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qpushbutton.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qabstractbutton.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qicon.h \
+		../BallGame/paintlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QColor \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QGridLayout \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qgridlayout.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlayout.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlayoutitem.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qboxlayout.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QPalette \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QEvent \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QPainter \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpainter.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QString \
+		../BallGame/mainwindow.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QMainWindow \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qmainwindow.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qtabwidget.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QSplitter \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qsplitter.h \
+		../BallGame/rightwidget.h \
+		../BallGame/ball.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QRect \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QList \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/QTimer \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qtimer.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qbasictimer.h
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\leftwidget.o ..\BallGame\leftwidget.cpp
 
 debug/rightwidget.o: ../BallGame/rightwidget.cpp ../BallGame/rightwidget.h \
@@ -1089,6 +1296,129 @@ debug/ball.o: ../BallGame/ball.cpp ../BallGame/ball.h \
 		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QBrush
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\ball.o ..\BallGame\ball.cpp
 
+debug/paintlabel.o: ../BallGame/paintlabel.cpp ../BallGame/paintlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QLabel \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qlabel.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qframe.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qwidget.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qwindowdefs.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qglobal.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qconfig.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qfeatures.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qsystemdetection.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qprocessordetection.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qcompilerdetection.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qglobalstatic.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qbasicatomic.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_bootstrap.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qgenericatomic.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_msvc.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_integrity.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qoldbasicatomic.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_vxworks.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_power.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_alpha.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_armv7.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_armv6.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_armv5.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_bfin.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_ia64.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_mips.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_s390.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_sh4a.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_sparc.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_x86.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_cxx11.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_gcc.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qatomic_unix.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qmutex.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qlogging.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qflags.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qtypeinfo.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qtypetraits.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qsysinfo.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qobjectdefs.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qnamespace.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qobjectdefs_impl.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qwindowdefs_win.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qobject.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qstring.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qchar.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qbytearray.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qrefcount.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qarraydata.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qstringbuilder.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qlist.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qalgorithms.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qiterator.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qcoreevent.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qscopedpointer.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qmetatype.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qvarlengtharray.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qcontainerfwd.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qisenum.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qobject_impl.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qmargins.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qrect.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qsize.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qpoint.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpaintdevice.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpalette.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qcolor.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qrgb.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qstringlist.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qdatastream.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qiodevice.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qpair.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qregexp.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qstringmatcher.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qbrush.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qvector.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qmatrix.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpolygon.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qregion.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qline.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtransform.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpainterpath.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qimage.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpixmap.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qsharedpointer.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qshareddata.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qsharedpointer_impl.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qhash.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qfont.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qfontmetrics.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qfontinfo.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qsizepolicy.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qcursor.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qkeysequence.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qevent.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qvariant.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qmap.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qdebug.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qtextstream.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qlocale.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qset.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qcontiguouscache.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qurl.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qurlquery.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qfile.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtCore/qfiledevice.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qvector2d.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtouchdevice.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QColor \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QMouseEvent \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/QPainter \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpainter.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qtextoption.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtGui/qpen.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QWidget \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/QColorDialog \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qcolordialog.h \
+		E:/QT/QT5.2.1/5.2.1/mingw48_32/include/QtWidgets/qdialog.h
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\paintlabel.o ..\BallGame\paintlabel.cpp
+
 debug/moc_mainwindow.o: debug/moc_mainwindow.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_mainwindow.o debug\moc_mainwindow.cpp
 
@@ -1097,6 +1427,9 @@ debug/moc_leftwidget.o: debug/moc_leftwidget.cpp
 
 debug/moc_rightwidget.o: debug/moc_rightwidget.cpp 
 	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_rightwidget.o debug\moc_rightwidget.cpp
+
+debug/moc_paintlabel.o: debug/moc_paintlabel.cpp 
+	$(CXX) -c $(CXXFLAGS) $(INCPATH) -o debug\moc_paintlabel.o debug\moc_paintlabel.cpp
 
 ####### Install
 

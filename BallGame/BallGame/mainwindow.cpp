@@ -1,9 +1,10 @@
 #include "mainwindow.h"
-
+#include <QTextCodec>
+#define tr QString::fromLocal8Bit
 MainWindow::MainWindow(QWidget *parent)
     : QMainWindow(parent)
 {
-    setWindowTitle("小球碰撞游戏");
+    setWindowTitle(tr("小球碰撞游戏"));
     splitter=new QSplitter(Qt::Horizontal,this); //水平切分
     left=new leftwidget(this);
     right=new rightwidget(this);
