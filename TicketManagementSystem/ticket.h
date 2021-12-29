@@ -24,9 +24,14 @@ public:
     static void setNextId(long id){nextId=id;}
     void setId(long id){this->id=id;}
     void setName(string name){this->name=name;}
+    void setPrice(double price){this->price=price;}
+    void setTrainNum(string s){this->train->setTrainNum(s);}
+    void setDepartureTime(Time_t t){this->train->setDepartureTime(t);}
+    void setDuration(int t){this->train->setDuration(t);}
     //getter
     static long getNextId(){return nextId;}
     long getId(){return id;}
+    double getPrice(){return price;}
     string getName(){return name;}
     //others
     void output()const;
@@ -39,5 +44,5 @@ private:
     Seat* seat;
     long autoNextId(){return nextId++;}
 };
-long Ticket::nextId=100000001;
+
 #endif // TICKET_H

@@ -6,10 +6,10 @@ class StandardTrain: public Train
 public:
     //constructor
     StandardTrain()=delete;
-    StandardTrain(time_t dt,int d,string num,string dept,string dest);
+    StandardTrain(Time_t dt,int d,string num,string dept,string dest);
     //virtual
-    virtual double getPrice()const;
     virtual string getTrainType()const;
+    virtual void output() const;
 };
 
 #endif // STANDARDTRAIN_H

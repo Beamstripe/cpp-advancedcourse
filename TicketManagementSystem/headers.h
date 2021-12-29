@@ -1,5 +1,6 @@
 #ifndef HEADERS_H
 #define HEADERS_H
+#include <cstdio>
 #include <vector>
 #include "ticket.h"
 #include "train.h"

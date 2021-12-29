@@ -79,11 +79,11 @@ void TicketManage::addTicket(){
             break;
         }
 
-        time_t tDeparture=getTime(dpy,dpmon,dpd,dph,dpmin);
+        Time_t tDeparture=getTime(dpy,dpmon,dpd,dph,dpmin);
         int dur=durh*60+durm;
         p=new Ticket(new StandardTrain(tDeparture,dur,trainNum,departure,destination)
                              ,name
-                             ,new Seat(carriageNum,position,str_category,category==NO_SEAT));
+                             ,price,new Seat(carriageNum,position,str_category,category==NO_SEAT));
 
         //        sortTickets();
         break;
@@ -112,7 +112,7 @@ void TicketManage::addTicket(){
                 slprpos=sleeperPositionCategory(slprpos);
             }
         }
-        time_t tDeparture=getTime(dpy,dpmon,dpd,dph,dpmin);
+        Time_t tDeparture=getTime(dpy,dpmon,dpd,dph,dpmin);
         int dur=durh*60+durm;
         string str_category,str_sleeperPosition;
 
@@ -151,13 +151,14 @@ void TicketManage::addTicket(){
         }
         p=new Ticket(new SleeperTrain(tDeparture,dur,trainNum,departure,destination,str_sleeperPosition)
                              ,name
-                             ,new Seat(carriageNum,position,str_category,category==NO_SEAT));
+                             ,price,new Seat(carriageNum,position,str_category,category==NO_SEAT));
         break;
     }
     case HIGHSPEED_TRAIN:{
-        expressSeatCategory category;
+        int category;
         cout<<"输入座位类型：(0-无座，1-二等座，2-一等座，3-商务座)";
         cin>>category;
+        category=expressSeatCategory(category);
         if(category!=NO_SEATS){
             cout<<"输入座位号";
             cin>>position;
@@ -181,11 +182,11 @@ void TicketManage::addTicket(){
             str_category="商务座";
             break;
         }
-        time_t tDeparture=getTime(dpy,dpmon,dpd,dph,dpmin);
+        Time_t tDeparture=getTime(dpy,dpmon,dpd,dph,dpmin);
         int dur=durh*60+durm;
         p=new Ticket(new HighspeedTrain(tDeparture,dur,trainNum,departure,destination,ifSmart=='y',ifSilent=='y')
                              ,name
-                             ,new Seat(carriageNum,position,str_category,category==NO_SEATS));
+                             ,price,new Seat(carriageNum,position,str_category,category==NO_SEATS));
         break;
     }
     }
@@ -200,7 +201,7 @@ void TicketManage::removeTicket(){
     long id;
     cout<<"请输入您想删除车票的编号：";
     cin>>id;
-    Ticket* p=findTicketById(p->getId());
+    Ticket* p=findTicketById(id);
     if(p==nullptr){
         cout<<"您想删除的车票不存在";
         return;
@@ -211,15 +212,17 @@ void TicketManage::viewTicket(){
     long id;
     cout<<"请输入您想查看车票的编号：";
     cin>>id;
-    Ticket* p=findTicketById(p->getId());
+    Ticket* p=findTicketById(id);
     if(p==nullptr){
-        cout<<"您想查看的车票不存在";
+        cout<<"您想查看的车票不存在"<<endl;
         return;
     }
     p->output();
 }
 void TicketManage::viewAllTickets(){
+    cout<<"车票数量："<<pTickets.size()<<endl;
     for(auto e:pTickets){
+        cout<<"-------------------------------------"<<endl;
         e->output();
     }
 }
@@ -229,8 +232,21 @@ void TicketManage::modifyTicket(){
     cin>>id;
     Ticket* p=findTicketById(p->getId());
     if(p==nullptr){
-        cout<<"您想修改的车票不存在";
+        cout<<"您想修改的车票不存在"<<endl;
         return;
     }
-
+    modifyMenu(p);
+}
+vector<Ticket*>::iterator TicketManage::getIterator(Ticket *p){
+    for(auto it=pTickets.begin();it!=pTickets.end();it++)
+        if((*it)==p)
+            return it;
+    return pTickets.end();
+}
+void TicketManage::printCosts(){
+    double s=0;
+    for(auto e:pTickets){
+        s+=e->getPrice();
+    }
+    cout<<"总费用："<<s<<"元"<<endl;
 }

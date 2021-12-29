@@ -1,35 +1,35 @@
 #include "function.h"
 using namespace std;
-
+long Ticket::nextId=100000001;
 int main()
 {
-
+    TicketManage tm;
     while(true){
-        optionType c=menu();
+        char c=menu();
         switch (c) {
-        case optionType::EXIT:
-            
+        case '0':
+            cout<<"再见！"<<endl;
+            return 0;
+        case '1':
+            tm.addTicket();
             break;
-        case optionType::ADD:
-            
+        case '2':
+            tm.removeTicket();
             break;
-        case optionType::REMOVE:
-            
+        case '3':
+            tm.modifyTicket();
             break;
-        case optionType::MODIFY:
-            
+        case '4':
+            tm.viewTicket();
             break;
-        case optionType::VIEW:
-            
+        case '5':
+            tm.viewAllTickets();
             break;
-        case optionType::VIEWALL:
-
-            break;
-        case optionType::PRINTCOST:
-
+        case '6':
+            tm.printCosts();
             break;
         default:
-            break;
+            cout<<"您输入的操作有误!请重新输入";
         }
     }
     return 0;

@@ -16,9 +16,9 @@ public:
     void setCategory(string category){this->category=category;}
     //getter
 //    string getGrade(){return grade;}
-    int getCarriageNum(){return carriageNum;}
-    string getPosition(){return position;}
-    string getCategory(){return category;}
+    int getCarriageNum()const{return carriageNum;}
+    string getPosition()const{return position;}
+    string getCategory()const{return category;}
     void output()const;
 private:
     bool ifNoSeat;

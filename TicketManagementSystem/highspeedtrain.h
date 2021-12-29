@@ -6,7 +6,7 @@ class HighspeedTrain:public Train
 public:
     //constructor
     HighspeedTrain()=delete;
-    HighspeedTrain(time_t dt,int d,string num,string dept,string dest,bool smart,bool slient);
+    HighspeedTrain(Time_t dt, int d, string num, string dept, string dest, bool smart=false, bool silent=false);
     //setter
     void setIfSmartCarriage(bool ifSmartCarriage){this->ifSmartCarriage=ifSmartCarriage;}
     void setIfSilientCarriage(bool ifSilientCarriage){this->ifSilientCarriage=ifSilientCarriage;}
@@ -14,8 +14,9 @@ public:
     bool getIfSmartCarriage(){return ifSmartCarriage;}
     bool getIfSilentCarriage(){return ifSilientCarriage;}
     //virtual
+    virtual void output() const;
+    virtual string getTrainType()const;
 private:
-//    virtual void getPrice()const;
     bool ifSmartCarriage;
     bool ifSilientCarriage;
 };

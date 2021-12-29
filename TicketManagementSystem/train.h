@@ -2,39 +2,51 @@
 #define TRAIN_H
 #include <ctime>
 #include <string>
-#include "seat.h"
+struct Time_t{
+    int year,month,day,hr,min;
+    Time_t(int y=0,int mt=0,int d=0,int h=0,int mn=0):year(y),month(mt),day(d),hr(h),min(mn){}
+    Time_t getDis(int m){
+        if(m/60+hr>23){
+            ++day;
+            hr=hr-24+m/60;
+        }
+        if(m/60+min>=60){
+            ++hr;
+            m=m%60-60+min;
+        }
+    }
+};
+
 using namespace std;
 class Train
 {
 public:
     //constructor
-    Train()=delete;
-    Train(time_t dt,int d,string num,string dept,string dest);
+    Train()=default;
+    Train(Time_t dt,int d,string num,string dept,string dest);
     //setter
-    void setDepartureTime(time_t departureTime){this->departureTime=departureTime;}
+    void setDepartureTime(Time_t departureTime){this->departureTime=departureTime;}
     void setDuration(int duration){this->duration=duration;}
     void setTrainNum(string trainNum){this->trainNum=trainNum;}
     void setDeparture(string departure){this->departure=departure;}
     void setDestination(string destination){this->destination=destination;}
     //getter
-    time_t getDepartureTime(){return departureTime;}
-    int getDuration(){return duration;}
-    string getTrainNum(){return trainNum;}
-    string getDeparture(){return departure;}
-    string getDestination(){return destination;}
+    Time_t getDepartureTime()const{return departureTime;}
+    int getDuration()const{return duration;}
+    string getTrainNum()const{return trainNum;}
+    string getDeparture()const{return departure;}
+    string getDestination()const{return destination;}
     //virtual
-    virtual double getPrice()const=0;
     virtual string getTrainType()const=0;
     virtual void output()const=0;
     //others
-    time_t getArrivalTime();
+    Time_t getArrivalTime()const;
 private:
-    time_t departureTime;
+    Time_t departureTime;
     int duration;
     string trainNum;
     string departure;
     string destination;
-    Seat seat;
 };
 
 #endif // TRAIN_H
