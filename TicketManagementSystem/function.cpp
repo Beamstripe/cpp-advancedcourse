@@ -1,11 +1,12 @@
 #include "function.h"
+#include <iomanip>
 #include <sstream>
 Time_t getTime(int year, int month, int day, int hour, int minute){
     return Time_t(year,month,day,hour,minute);
 }
 string outputTime(Time_t t){
     stringstream ss;
-    ss<<t.year<<'-'<<t.month<<'-'<<t.day<<' '<<t.hr<<':'<<t.min;
+    ss<<t.year<<'-'<<setfill('0')<<setw(2)<<t.month<<'-'<<setfill('0')<<setw(2)<<t.day<<' '<<setfill('0')<<setw(2)<<t.hr<<':'<<setfill('0')<<setw(2)<<t.min;
     return ss.str();
 }
 
@@ -48,7 +49,7 @@ char modifyMenu(Ticket* p){
 }
 string outputTime(int t){
     stringstream ss;
-    ss<<(t/60)<<":"<<(t%60);
+    ss<<setfill('0')<<setw(2)<<(t/60)<<":"<<setfill('0')<<setw(2)<<(t%60);
     return ss.str();
 }
 char menu(){

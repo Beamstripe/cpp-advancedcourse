@@ -230,7 +230,7 @@ void TicketManage::modifyTicket(){
     long id;
     cout<<"请输入您想修改车票的编号：";
     cin>>id;
-    Ticket* p=findTicketById(p->getId());
+    Ticket* p=findTicketById(id);
     if(p==nullptr){
         cout<<"您想修改的车票不存在"<<endl;
         return;

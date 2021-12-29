@@ -10,6 +10,7 @@ SleeperTrain::SleeperTrain(Time_t dt, int d, string num, string dept, string des
 }
 
 void SleeperTrain::output()const{
+    cout<<"车次："<<getTrainNum()<<endl;
     cout<<"起止地："<<getDeparture()<<"---"<<getDestination()<<endl;
     cout<<"出发时间："<<outputTime(getDepartureTime())<<endl;
     cout<<"行车时长："<<outputTime(getDuration())<<endl;
